@@ -1,0 +1,29 @@
+------------------------------------------------------------------------------
+                           Function: maxent
+       A Julia implementation of the maximum-entropy basis functions
+
+               Source code  : http://camlab.cl/software/maxent
+             (See Copyright and License notice in "license.txt")
+
+                              Copyright (c) 2018
+                         by Alejandro Ortiz-Bernardin
+                               aortizb@uchile.cl
+				                 http://camlab.cl/alejandro/
+
+                    Department of Mechanical Engineering
+                   Universidad de Chile,  Santiago, CHILE
+
+               Computational and Applied Mechanics Laboratory,
+                Center for Modern Computational Engineering,
+                 Facultad de Ciencias Físicas y Matemáticas,
+                   Universidad de Chile, Santiago, CHILE
+                            All Rights Reserved.
+
+------------------------------------------------------------------------------
+Release notes
+=============
+Version 1.0 (14-OCT-2018). (Initial realease of code)
+
+-------------------------------------------------------------------------------
+References
+==========
