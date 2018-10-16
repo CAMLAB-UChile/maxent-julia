@@ -5,7 +5,8 @@
 #  Version      : 1.0
 #  Date         : 14-OCT-2018
 #  Source code  : http://camlab.cl/software/maxent
-#  Author       : A. Ortiz-Bernardin, aortizb@uchile.cl, camlab.cl/alejandro
+#  Authors      : A. Ortiz-Bernardin, aortizb@uchile.cl, camlab.cl/alejandro
+#                 J. M. Cáceres
 #
 #              (See Copyright and License notice in "License.txt")
 #              (See updates and version details in "Version.txt")
