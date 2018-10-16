@@ -2,7 +2,9 @@
 A Julia implementation of the maximum-entropy basis functions
 
 # Author
-<a href="https://github.com/aaortizb">Alejandro Ortiz-Bernardin</a>
+<a href="https://github.com/aaortizb">Alejandro Ortiz-Bernardin</a>, Assistant Professor, Department of Mechanical Engineering, Universidad de Chile.
+
+José M. Cáceres, Undergraduate Research Assistant, Department of Mechanical Engineering, Universidad de Chile.
 
 # Instructions
 The program is controlled by the main.jl function. This is the only function that
