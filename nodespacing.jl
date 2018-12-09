@@ -1,3 +1,5 @@
+using LinearAlgebra
+
 function nodespacing(dim,n,ncoord)
   """
  Purpose
@@ -20,8 +22,8 @@ function nodespacing(dim,n,ncoord)
   h_node=zeros(n,1)
   distances=zeros(n,n)
   k=1
-  for i=1:n
-    distances[i,:]=sqrt.(sum((ones(n,1)*ncoord[i,:]'-ncoord).^2,2)).'
+  @inbounds for i=1:n
+    distances[i,:]=sqrt.(sum((ones(n,1)*ncoord[i,:]'-ncoord).^2, dims=2))'
     distances[i,i]=-1
     distances[i,:]=sort(distances[i,:])
     if dim==1
@@ -43,5 +45,5 @@ function nodespacing(dim,n,ncoord)
     end
   end
   return h_node
-  
+
 end

@@ -1,3 +1,6 @@
+using Printf
+using LinearAlgebra
+
 function consistencycheck(dim,x,lambda,rtol,compute,phi,phider,coord,contribute,len)
 
   num=round(-log10(rtol))
@@ -6,7 +9,7 @@ function consistencycheck(dim,x,lambda,rtol,compute,phi,phider,coord,contribute,
 
   if dim == 1
     xcoord=zeros(len,1); # store the x-coordinate of the contributing nodes
-    for i=1:len
+    @inbounds for i=1:len
       xcoord[i,1]=coord[contribute[i],1]
     end
 
@@ -30,7 +33,7 @@ function consistencycheck(dim,x,lambda,rtol,compute,phi,phider,coord,contribute,
       end
     elseif compute == 2
       phiderx=zeros(len,1)
-      for i=1:len
+      @inbounds for i=1:len
         phiderx[i,1]=phider[i,1]; # vector containing dphi/dx for each of the contributing nodes
       end
       sumphi=sum(phi)
@@ -57,7 +60,7 @@ function consistencycheck(dim,x,lambda,rtol,compute,phi,phider,coord,contribute,
   elseif dim == 2
     xcoord=zeros(len,1); # store the x-coordinate of the contributing nodes
     ycoord=zeros(len,1); # store the y-coordinate of the contributing nodes
-    for i=1:len
+    @inbounds for i=1:len
       xcoord[i,1]=coord[contribute[i],1]
       ycoord[i,1]=coord[contribute[i],2]
     end
@@ -86,7 +89,7 @@ function consistencycheck(dim,x,lambda,rtol,compute,phi,phider,coord,contribute,
     elseif compute == 2
       phiderx=zeros(len,1)
       phidery=zeros(len,1)
-      for i=1:len
+      @inbounds for i=1:len
         phiderx[i,1]=phider[i,1]; # vector containing dphi/dx for each of the contributing nodes
         phidery[i,1]=phider[i,2]; # vector containing dphi/dy for each of the contributing nodes
       end
@@ -117,7 +120,7 @@ function consistencycheck(dim,x,lambda,rtol,compute,phi,phider,coord,contribute,
     xcoord=zeros(len,1); # store the x-coordinate of the contributing nodes
     ycoord=zeros(len,1); # store the y-coordinate of the contributing nodes
     zcoord=zeros(len,1); # store the z-coordinate of the contributing nodes
-    for i=1:len
+    @inbounds for i=1:len
       xcoord[i,1]=coord[contribute[i],1]
       ycoord[i,1]=coord[contribute[i],2]
       zcoord[i,1]=coord[contribute[i],3]
@@ -145,7 +148,7 @@ function consistencycheck(dim,x,lambda,rtol,compute,phi,phider,coord,contribute,
       phiderx=zeros(len,1)
       phidery=zeros(len,1)
       phiderz=zeros(len,1)
-      for i=1:len
+      @inbounds for i=1:len
         phiderx[i,1]=phider[i,1]; # vector containing dphi/dx for each of the contributing nodes
         phidery[i,1]=phider[i,2]; # vector containing dphi/dy for each of the contributing nodes
         phiderz[i,1]=phider[i,3]; # vector containing dphi/dz for each of the contributing nodes

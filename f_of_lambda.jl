@@ -15,12 +15,12 @@ function f_of_lambda(dim,w,xc,lambda,len)
     gam=log(Z)
     dgam=zeros(dim,1)
     hgam=zeros(dim,dim)
-    for id=1:dim
+    @inbounds for id=1:dim
       a=sum(-(xc[:,id]).*phi[:])
       dgam[id]=sum((-xc[:,id]).*phi[:]) # gradient of log(Z)
     end
-    for id=1:dim
-      for jd=1:dim
+    @inbounds for id=1:dim
+      @inbounds for jd=1:dim
           hgam[id,jd]=sum( phi[:].*( -xc[:,id] ).*(-xc[:,jd]) )- dgam[id]*dgam[jd]
       end
     end

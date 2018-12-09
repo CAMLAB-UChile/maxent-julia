@@ -1,3 +1,5 @@
+using LinearAlgebra
+
 function phidermatrices(dim,w,wder,s,xc,phi)
 
   H=zeros(dim)
@@ -29,7 +31,7 @@ function phidermatrices(dim,w,wder,s,xc,phi)
 
   # compute MA matrix
   MA=zeros(s,dim)
-  for i=1:s
+  @inbounds for i=1:s
       MA[i,1:dim]=1/w[i]*wder[i,1:dim]
   end
 

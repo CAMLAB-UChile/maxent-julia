@@ -2,8 +2,6 @@
 #                          Load necessary functions
 ################################################################################
 
-workspace()
-
 #Load auxiliar functions
 include("computephi.jl")
 include("f_of_lambda.jl")
@@ -112,5 +110,4 @@ end
 
 h_node = nodespacing(dim,n,ncoord)
 
-maxent(dim,n,ncoord,x,prior_type,gamma,ilambda,rtol,compute,printmaxent,
-       checktest,unstructured,h_node)
+maxent(dim,n,ncoord,x,prior_type,gamma,ilambda,rtol,compute,printmaxent,checktest,unstructured,h_node)

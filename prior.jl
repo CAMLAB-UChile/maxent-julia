@@ -59,25 +59,25 @@ function prior(dim,prior_type,gamma,rtol,x,ncoord,n,h_node,unstructured)
     if unstructured==1 # each node with their own betas
       tolzero=rtol # tolerance at which Gaussian prior is considered zero
       radius=zeros(n,1)
-      for i=1:n
+      @inbounds for i=1:n
         radius[i]=h_node[i]*sqrt.(-log(tolzero)/gamma[i])
       end
       radius=radius[:,1]
       (contribute,len)=neighbors(dim,radius,xc,n)
       betas=zeros(len,1)
-      for j=1:len
+      @inbounds for j=1:len
         betas[j]=gamma[contribute[j]]/(h_node[contribute[j]]^2)
       end
     else # h constant but each node with their own gamma and therefore their own betas
       h=maximum(h_node)
       tolzero=rtol # tolerance at which Gaussian prior is considered zero
       radius=zeros(n,1)
-      for i=1:n
+      @inbounds for i=1:n
         radius[i]=h*sqrt.(-log(tolzero)/gamma[i])
       end
       (contribute,len)=neighbors(dim,radius,xc,n)
       betas=zeros(len,1)
-      for j=1:len
+      @inbounds for j=1:len
         betas[j]=gamma[contribute[j]]/(h*h)
       end
     end
@@ -89,11 +89,11 @@ function prior(dim,prior_type,gamma,rtol,x,ncoord,n,h_node,unstructured)
       wder=2*(w.*xc).*betas
     elseif (dim == 2)
       xc=xc[contribute,:]
-      w=exp.(-betas.*(sum((xc.').^2,1).'))
+      w=exp.(-betas.*(sum((xc').^2,dims=1)'))
       wder=2*([w w].*xc).*[betas betas]
     elseif (dim == 3)
       xc=xc[contribute,:]
-      w=exp.(-betas.*(sum((xc.').^2,1).'))
+      w=exp.(-betas.*(sum((xc').^2,dims=1)'))
       wder=2*([w w w].*xc).*[betas betas betas]
     else
       error("Fatal error! Dimension not yet coded.")
@@ -104,7 +104,7 @@ function prior(dim,prior_type,gamma,rtol,x,ncoord,n,h_node,unstructured)
       radius=gamma.*h_node
       (contribute,len)=neighbors(dim,radius,xc,n)
       dmi=zeros(len,1)
-      for j=1:len
+      @inbounds for j=1:len
         dmi[j]=1/(gamma[contribute[j]]*h_node[contribute[j]])
       end
     else # h constant but each node with their own gamma and therefore with their own dmi = 1/radius_of_basis_function
@@ -112,7 +112,7 @@ function prior(dim,prior_type,gamma,rtol,x,ncoord,n,h_node,unstructured)
       radius=gamma.*h
       (contribute,len)=neighbors(dim,radius,xc,n)
       dmi=zeros(len,1)
-      for j=1:len
+      @inbounds for j=1:len
           dmi[j]=1/(gamma[contribute[j]]*h)
       end
     end
@@ -122,7 +122,7 @@ function prior(dim,prior_type,gamma,rtol,x,ncoord,n,h_node,unstructured)
       ri=dmi.*sqrt.(xc.^2)
     else
       xc=xc[contribute,:]
-      ri=dmi.*sqrt.(sum((xc.').^2,1).')
+      ri=dmi.*sqrt.(sum((xc').^2,dims=1)')
     end
 
     # compute quartic spline prior and its gradient
@@ -141,7 +141,7 @@ function prior(dim,prior_type,gamma,rtol,x,ncoord,n,h_node,unstructured)
       radius=gamma.*h_node
       (contribute,len)=neighbors(dim,radius,xc,n)
       dmi=zeros(len,1)
-      for j=1:len
+      @inbounds for j=1:len
         dmi[j]=1/(gamma[contribute[j]]*h_node[contribute[j]])
       end
     else # h constant but each node with their own gamma and therefore with their own dmi = 1/radius_of_basis_function
@@ -149,7 +149,7 @@ function prior(dim,prior_type,gamma,rtol,x,ncoord,n,h_node,unstructured)
       radius=gamma.*h
       (contribute,len)=neighbors(dim,radius,xc,n)
       dmi=zeros(len,1)
-      for j=1:len
+      @inbounds for j=1:len
         dmi[j]=1/(gamma[contribute[j]]*h)
       end
     end
@@ -160,7 +160,7 @@ function prior(dim,prior_type,gamma,rtol,x,ncoord,n,h_node,unstructured)
       ri=dmi.*sqrt.(xc.^2)
     else
       xc=xc[contribute,:]
-      ri=dmi.*sqrt.(sum((xc.').^2,1).')
+      ri=dmi.*sqrt.(sum((xc').^2,dims=1)')
     end
 
     # compute cubic spline prior and its gradient

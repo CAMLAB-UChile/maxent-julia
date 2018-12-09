@@ -2,8 +2,8 @@
 #                            FUNCTION: maxent
 #        A Julia implementation of the maximum-entropy basis functions
 #-------------------------------------------------------------------------------
-#  Version      : 1.0
-#  Date         : 14-OCT-2018
+#  Version      : 1.1
+#  Date         : 8-DEC-2018
 #  Source code  : http://camlab.cl/software/maxent
 #  Authors      : A. Ortiz-Bernardin, aortizb@uchile.cl, camlab.cl/alejandro
 #                 J. M. Cáceres
@@ -64,6 +64,8 @@
 #
 ################################################################################
 
+using Printf
+
 function maxent(dim,n,ncoord,x,prior_type,gamma,ilambda,rtol,compute,
                 printmaxent,checktest,unstructured,h_node)
 
@@ -90,7 +92,7 @@ function maxent(dim,n,ncoord,x,prior_type,gamma,ilambda,rtol,compute,
         print("For evaluation point: ")
         println(x)
         print("Neighbor nodes: [")
-        for i=1:len
+        @inbounds for i=1:len
             if i==len
                 @printf("%d] ",contribute[i])
             else
@@ -100,7 +102,7 @@ function maxent(dim,n,ncoord,x,prior_type,gamma,ilambda,rtol,compute,
         print("\n")
 
         println("MaxEnt basis functions:")
-        for i=1:length(phi)
+        @inbounds for i=1:length(phi)
           @printf("%e\n",phi[i])
         end
       elseif compute == 2
@@ -108,7 +110,7 @@ function maxent(dim,n,ncoord,x,prior_type,gamma,ilambda,rtol,compute,
             print("For evaluation point: ")
             println(x)
             print("Neighbor nodes: [")
-            for i=1:len
+            @inbounds for i=1:len
                 if i==len
                     @printf("%d] ",contribute[i])
                 else
@@ -117,11 +119,11 @@ function maxent(dim,n,ncoord,x,prior_type,gamma,ilambda,rtol,compute,
             end
             print("\n")
             println("MaxEnt basis functions:")
-            for i=1:length(phi)
+            @inbounds for i=1:length(phi)
               @printf("%e\n",phi[i])
             end
             println("MaxEnt basis function gradient:")
-            for i=1:length(phi)
+            @inbounds for i=1:length(phi)
               @printf("%e\n",phider[i,1])
             end
             print("\n")
@@ -129,7 +131,7 @@ function maxent(dim,n,ncoord,x,prior_type,gamma,ilambda,rtol,compute,
           print("For evaluation point: ")
           println(x)
           print("Neighbor nodes: [")
-          for i=1:len
+          @inbounds for i=1:len
               if i==len
                   @printf("%d] ",contribute[i])
               else
@@ -138,11 +140,11 @@ function maxent(dim,n,ncoord,x,prior_type,gamma,ilambda,rtol,compute,
           end
           print("\n")
           println("MaxEnt basis functions:")
-          for i=1:length(phi)
+          @inbounds for i=1:length(phi)
             @printf("%e\n",phi[i])
           end
           println("MaxEnt basis function gradient:")
-          for i=1:length(phi)
+          @inbounds for i=1:length(phi)
             @printf("%e %e\n",phider[i,1],phider[i,2])
           end
           print("\n")
@@ -150,7 +152,7 @@ function maxent(dim,n,ncoord,x,prior_type,gamma,ilambda,rtol,compute,
             print("For evaluation point: ")
             println(x)
             print("Neighbor nodes: [")
-            for i=1:len
+            @inbounds for i=1:len
                 if i==len
                     @printf("%d] ",contribute[i])
                 else
@@ -159,11 +161,11 @@ function maxent(dim,n,ncoord,x,prior_type,gamma,ilambda,rtol,compute,
             end
             print("\n")
             println("MaxEnt basis functions:")
-            for i=1:length(phi)
+            @inbounds for i=1:length(phi)
               @printf("%e\n",phi[i])
             end
             println("MaxEnt basis function gradient:")
-            for i=1:length(phi)
+            @inbounds for i=1:length(phi)
               @printf("%e %e %e\n",phider[i,1],phider[i,2],phider[i,3])
             end
             print("\n")
